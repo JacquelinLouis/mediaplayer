@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="media_browser_fragment_media_browser_recycler_view_text_view_padding">5dp</dimen>
+</resources>
