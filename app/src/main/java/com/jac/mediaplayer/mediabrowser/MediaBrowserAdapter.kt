@@ -12,7 +12,8 @@ import com.jac.mediaplayer.R
  * Recycler view, display available [android.media.browse.MediaBrowser] from their [ComponentName]
  * as a list.
  */
-class MediaBrowserAdapter(private val dataSet: List<ComponentName>):
+class MediaBrowserAdapter(private val dataSet: List<ComponentName>,
+                          private val onClickListener: (ComponentName) -> Unit):
     RecyclerView.Adapter<MediaBrowserAdapter.ViewHolder>() {
 
     /** View holder, display each [ComponentName] as a row. */
@@ -28,6 +29,7 @@ class MediaBrowserAdapter(private val dataSet: List<ComponentName>):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = dataSet[position].toString()
+        holder.textView.setOnClickListener{ onClickListener(dataSet[position]) }
     }
 
     override fun getItemCount(): Int {
