@@ -18,8 +18,10 @@ class MediaItemListFragment: Fragment(R.layout.media_item_list_fragment) {
             mediaItemList: List<MediaBrowserCompat.MediaItem>?):MediaItemListAdapter? {
         return mediaItemList?.let {
             MediaItemListAdapter(it) { mediaItem ->
-                mediaItem.mediaId?.let { mediaId ->
-                    mediaPlayerViewModel.browse(mediaId)
+                if (mediaItem.isBrowsable) {
+                    mediaItem.mediaId?.let { mediaId ->
+                        mediaPlayerViewModel.browse(mediaId)
+                    }
                 }
             }
         }
