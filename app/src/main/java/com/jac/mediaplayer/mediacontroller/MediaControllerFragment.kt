@@ -47,5 +47,13 @@ class MediaControllerFragment: Fragment(R.layout.media_controller_fragment) {
                 }
             }
         }
+
+        skipNextButton.setOnClickListener {
+            mediaPlayerViewModel.next()
+        }
+
+        skipPreviousButton.setOnClickListener {
+            mediaPlayerViewModel.previous()
+        }
     }
 }

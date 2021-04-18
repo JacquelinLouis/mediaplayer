@@ -156,4 +156,14 @@ class MediaPlayerAndroidViewModel(private val app: Application) : AndroidViewMod
     fun pause() {
         mediaControllerCompat.value?.transportControls?.pause()
     }
+
+    /** Skip to next media item. */
+    fun next() {
+        mediaControllerCompat.value?.transportControls?.skipToNext()
+    }
+
+    /** Skip to previous media item. */
+    fun previous() {
+        mediaControllerCompat.value?.transportControls?.skipToPrevious()
+    }
 }
