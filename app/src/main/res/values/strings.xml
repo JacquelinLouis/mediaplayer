@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MediaPlayer</string>
+
+    <string name="media_controller_fragment_control_previous_button_content_description">Previous button</string>
+    <string name="media_controller_fragment_control_play_pause_button_description">Play pause button</string>
+    <string name="media_controller_fragment_control_next_button_description">Next button</string>
 </resources>

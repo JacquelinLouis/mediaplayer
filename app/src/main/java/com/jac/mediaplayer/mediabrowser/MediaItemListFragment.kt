@@ -2,12 +2,17 @@ package com.jac.mediaplayer.mediabrowser
 
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.session.MediaControllerCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jac.mediaplayer.MediaPlayerAndroidViewModel
 import com.jac.mediaplayer.R
+import com.jac.mediaplayer.mediacontroller.MediaControllerFragment
 
 class MediaItemListFragment: Fragment(R.layout.media_item_list_fragment) {
 
@@ -21,6 +26,10 @@ class MediaItemListFragment: Fragment(R.layout.media_item_list_fragment) {
                 if (mediaItem.isBrowsable) {
                     mediaItem.mediaId?.let { mediaId ->
                         mediaPlayerViewModel.browse(mediaId)
+                    }
+                } else if (mediaItem.isPlayable) {
+                    mediaItem.mediaId?.let { mediaId ->
+                        mediaPlayerViewModel.play(mediaId)
                     }
                 }
             }
@@ -39,6 +48,17 @@ class MediaItemListFragment: Fragment(R.layout.media_item_list_fragment) {
                 recyclerView.run {
                     adapter = getMediaItemListRecyclerViewAdapter(mediaItemList)
                     layoutManager = LinearLayoutManager(view.context)
+                }
+            }
+        }
+
+        mediaPlayerViewModel.playbackStateCompat.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.state == PlaybackStateCompat.STATE_PLAYING) {
+                    parentFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<MediaControllerFragment>(R.id.activity_main_fragment_container_view)
+                    }
                 }
             }
         }
